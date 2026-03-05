@@ -9,7 +9,7 @@
 - 5. cv.imwrite()를 사용하여 새로 저장, cv.imshow()를 사용하여 이미지를 화면에 출력한다.
 
 ###
-'''python
+```python
 import cv2 as cv
 import sys
 
@@ -33,4 +33,4 @@ cv.destroyAllWindows()
 
 print(type(img))
 print(img.shape)
-'''
+```
