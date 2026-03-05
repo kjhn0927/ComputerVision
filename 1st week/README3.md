@@ -67,5 +67,5 @@ cv.imwrite('soccer_drawing.jpg', img)
 
 ## 결과물
 
-![result](soccer_drawing.png)
+![result](soccer_drawing.jpg)
 
