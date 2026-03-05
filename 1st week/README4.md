@@ -20,64 +20,42 @@ img = cv.imread('soccer.jpg')
 if img is None:
     sys.exit('파일이 존재하지 않습니다.')
 
-drawing_red = False
-drawing_blue = False
-brush_size = 3
+dragging = False # 드래그 상태를 나타내는 변수
+ix, iy = -1, -1 # 드래그 시작점의 좌표를 저장하는 변수 (초기값은 -1로 설정)
 
-# 드래그 관련 변수
-dragging = False
-ix, iy = -1, -1
+def draw(event, x, y, flags, param): # 마우스 이벤트를 처리하는 콜백 함수
 
-def draw(event, x, y, flags, param):
+    global dragging, ix, iy, img # 전역 변수로 선언하여 함수 내에서 사용할 수 있도록 함
 
-    global drawing_red, drawing_blue
-    global dragging, ix, iy, img
-
-    if event == cv.EVENT_LBUTTONDOWN:
-        drawing_red = True
+    if event == cv.EVENT_LBUTTONDOWN: # 왼쪽 버튼을 누르면 드래그 시작
         dragging = True
-        ix, iy = x, y   # 시작 좌표 저장
+        ix, iy = x, y
 
-    elif event == cv.EVENT_RBUTTONDOWN:
-        drawing_blue = True
-
-    elif event == cv.EVENT_MOUSEMOVE:
-        # 드래그 중이면 사각형 표시
+    elif event == cv.EVENT_MOUSEMOVE: # 마우스가 움직이는 동안 드래그 중이면 사각형을 그려서 보여줌
         if dragging:
             temp = img.copy()
-            cv.rectangle(temp,(ix,iy),(x,y),(0,255,0),2)
-            cv.imshow('Drawing',temp)
-            return
+            cv.rectangle(temp, (ix, iy), (x, y), (0,255,0), 2)
+            cv.imshow('Drawing', temp)
 
-    elif event == cv.EVENT_LBUTTONUP:
-        drawing_red = False
+    elif event == cv.EVENT_LBUTTONUP: # 왼쪽 버튼에서 손을 떼면 드래그 종료, 선택된 영역을 잘라서 보여주고 저장
         dragging = False
 
-        # ROI 추출
         roi = img[iy:y, ix:x]
 
         if roi.size != 0:
             cv.imshow('Cropped', roi)
             cv.imwrite('cropped.jpg', roi)
 
-    elif event == cv.EVENT_RBUTTONUP:
-        drawing_blue = False
+cv.namedWindow('Drawing') # 드로잉 창 생성
+cv.imshow('Drawing', img) # 원본 이미지를 드로잉 창에 표시
 
-    cv.imshow('Drawing', img)
+cv.setMouseCallback('Drawing', draw) # 드로잉 창에 마우스 이벤트가 발생할 때마다 draw 함수를 호출하도록 설정
 
-
-cv.namedWindow('Drawing')
-cv.imshow('Drawing',img)
-
-cv.setMouseCallback('Drawing',draw)
-
-while(True):
-    if cv.waitKey(1)==ord('q'):
+while True: # 무한 루프를 돌면서 키 입력을 기다림
+    if cv.waitKey(1) == ord('q'):
         break
 
 cv.destroyAllWindows()
-
-cv.imwrite('soccer_drawing.jpg', img)
 ```
 
 ###
