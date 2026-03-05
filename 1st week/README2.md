@@ -34,3 +34,7 @@ cv.destroyAllWindows()
 print(type(img))
 print(img.shape)
 ```
+
+###
+
+![result](soccer_gray.jpg)
