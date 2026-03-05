@@ -9,6 +9,9 @@
 - 5. cv.imwrite()를 사용하여 새로 저장, cv.imshow()를 사용하여 이미지를 화면에 출력한다.
 
 ###
+
+## 코드(python)
+
 ```python
 import cv2 as cv
 import sys
@@ -36,6 +39,8 @@ print(img.shape)
 ```
 
 ###
+
+## 결과물
 
 ![result](soccer.jpg)
 ![result](soccer_gray.jpg)
