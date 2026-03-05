@@ -38,3 +38,5 @@ print(img.shape)
 ###
 
 ![result](soccer_gray.jpg)
+![result](soccer_gray_small.jpg)
+
